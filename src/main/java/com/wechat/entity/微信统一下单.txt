@@ -1,0 +1,25 @@
+微信统一下单名词解释：（微信支付：https://pay.weixin.qq.com/wiki/doc/api/index.html）
+
+ sign签名生成算法:
+ 详见：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
+ 
+ 商户订单号：
+ 商户支付的订单号由商户自定义生成，微信支付要求商户订单号保持唯一性（建议根据当前系统时间加随机序列来生成订单号）。
+ 重新发起一笔支付要使用原订单号，避免重复支付；已支付过或已调用关单、撤销的订单号不能重新发起支付。
+ 
+ 交易金额：
+ 交易金额默认为人民币交易，接口中参数支付金额单位为【分】，参数值不能带小数。对账单中的交易金额单位为【元】。
+ 外币交易的支付金额精确到币种的最小单位，参数值不能带小数点。
+ 
+ 时间规则：
+ 标准北京时间，时区为东八区；如果商户的系统时间为非标准北京时间。参数值必须根据商户系统所在时区先换算成标准北京时间，
+  例如商户所在地为0时区的伦敦，当地时间为2014年11月11日0时0分0秒，换算成北京时间为2014年11月11日8时0分0秒。
+  
+ 代金券或立减优惠：
+ 微信支付代金券业务是基于微信支付，为了协助商户方便地实现营销优惠措施。针对部分有开发能力的商户，微信支付提供通过API接口实现运营代金券的功能
+ 
+ 获取openid：
+ 公众号：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_4
+ 企业号：企业号请使用【企业号OAuth2.0接口】获取企业号内成员userid，再调用【企业号userid转openid接口】进行转换
+ 企业号OAuth2.0接口：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth验证接口
+ 企业号userid转openid接口：http://qydev.weixin.qq.com/wiki/index.php?title=Userid与openid互换接口

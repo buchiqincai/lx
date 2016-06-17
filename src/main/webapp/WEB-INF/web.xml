@@ -1,0 +1,110 @@
+<!-- Copyright : adobocode.com , 2010 -->
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!-- <listener> <listener-class>com.icangke.utils.SpringContext</listener-class> </listener> -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-*.xml</param-value>
+		<!-- 启用定时任务,classpath:quartz/quartz.xml-->
+	</context-param>
+
+	<filter>
+	 <filter-name>encodingFilter</filter-name>
+	 <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 <init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	 </init-param>
+	 <init-param>
+		<param-name>forceEncoding</param-name>
+		<param-value>true</param-value>
+	 </init-param>
+	</filter>
+	
+	<!-- <filter>
+	 <description>拦截器</description>
+	 <filter-name>interceptorWeb</filter-name>
+	 <filter-class>com.lx.interceptor.InterceptorWeb</filter-class>
+	 <init-param>
+	  <description>保护模式，1：全保护，2：全不保护,全保护模式不保护的url不能为空</description>
+	  <param-name>model</param-name>
+	  <param-value>2</param-value>
+	 </init-param>
+	 <init-param>
+	  <description>受保护url</description>
+	  <param-name>protectUrl</param-name>
+	  <param-value>/poi/userExcel.html,</param-value>
+	 </init-param>
+	 <init-param>
+	  <description>不受保护url</description>
+	   <param-name>unprotectUrl</param-name>
+	   <param-value>/user/,</param-value>
+	 </init-param>
+	</filter>
+	<filter-mapping>
+	 <filter-name>interceptorWeb</filter-name>
+	 <url-pattern>*.htm</url-pattern>
+	</filter-mapping> -->
+
+  	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>classpath:xml/logback.xml</param-value>
+	</context-param>
+
+	<servlet>
+		<description>spring mvc控制器</description>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+    
+    <!-- 阿里数据库访问监控 访问监控页面：http://ip：port/projectName/druid/index.html -->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<init-param>
+			<!-- 允许清空统计数据 -->
+			<param-name>resetEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<!-- 用户名 -->
+			<param-name>loginUsername</param-name>
+			<param-value>lx</param-value>
+		</init-param>
+		<init-param>
+			<!-- 密码 -->
+			<param-name>loginPassword</param-name>
+			<param-value>lx123456</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 主页 -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 错误页面 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error.html</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error.html</location>
+	</error-page>
+</web-app>

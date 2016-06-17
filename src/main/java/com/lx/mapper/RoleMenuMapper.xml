@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lx.dao.RoleMenuDao">
+ <resultMap id="BaseResultMap" type="com.lx.entity.RoleMenu">
+	<id column="id" property="id" jdbcType="BIGINT" />
+	<result column="role_id" property="roleId" jdbcType="BIGINT" />
+	<result column="menu_id" property="menuId" jdbcType="BIGINT" />
+ </resultMap>
+
+ <sql id="all_column">
+ id,role_id,menu_id
+ </sql>
+ 
+ <sql id="select_query">
+  <if test="roleId != null">
+  and role_id=#{roleId,jdbcType=BIGINT}
+  </if>
+  <if test="menuId != null">
+  and menu_id=#{menuId,jdbcType=BIGINT}
+  </if>
+ </sql>
+ 
+ <!-- 单表条件查询 -->
+ <select id="selectRoleMenu" resultMap="BaseResultMap">
+  select <include refid="all_column"/> from role_menu
+   <trim prefix="where" prefixOverrides="and">
+    <include refid="select_query" />
+   </trim> 
+ </select>
+
+</mapper>

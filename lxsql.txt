@@ -1,0 +1,48 @@
+CREATE TABLE `menu` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `pid` bigint(20) NOT NULL DEFAULT '0' COMMENT '上级ID',
+  `title` varchar(30) COLLATE utf8_bin NOT NULL COMMENT '标题',
+  `type` smallint(6) NOT NULL DEFAULT '0' COMMENT '类型 0、菜单 1、功能',
+  `state` smallint(6) NOT NULL DEFAULT '0' COMMENT '状态 0、正常 1、禁用',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `url` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '地址',
+  `description` varchar(80) COLLATE utf8_bin NOT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='权限表'
+
+
+CREATE TABLE `role` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(30) NOT NULL COMMENT '角色',
+  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
+  `description` varchar(60) NOT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表'
+
+
+CREATE TABLE `role_menu` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `menu_id` bigint(20) NOT NULL COMMENT '权限ID',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='角色权限表'
+
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `login_name` varchar(30) NOT NULL COMMENT '登录名称',
+  `password` varchar(32) NOT NULL COMMENT '密码',
+  `type` smallint(6) NOT NULL DEFAULT '0' COMMENT '0、普通用户 1、管理员(有所有的权限)',
+  `status` smallint(6) NOT NULL DEFAULT '1' COMMENT '0、禁用 1、正常',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `last_time` datetime NOT NULL COMMENT '最后登录时间',
+  `cookie_id` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT ' ' COMMENT '标识cookie的id',
+  `last_ip` varchar(80) CHARACTER SET utf8 NOT NULL DEFAULT ' ' COMMENT '最后登录的ip',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表'
+
+CREATE TABLE `user_role` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表'

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lx.dao.UserDao">
+ <resultMap id="BaseResultMap" type="com.lx.entity.User">
+	<id column="id" property="id" jdbcType="BIGINT" />
+	<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+	<result column="password" property="password" jdbcType="VARCHAR" />
+	<result column="create_time" property="crrateTime" jdbcType="TIMESTAMP" />
+	<result column="type" property="type" jdbcType="INTEGER" />
+	<result column="status" property="status" jdbcType="INTEGER" />
+	<result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+	<result column="cookie_id" property="cookieId" jdbcType="VARCHAR" />
+	<result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
+ </resultMap>
+
+ <sql id="all_column">
+ login_name,password,id,create_time,type,status,last_time,cookie_id,last_ip
+ </sql>
+ <!-- 通过登录名查询 -->
+ <select id="selectUserByLogName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select <include refid="all_column"/> 
+  from user where login_name=#{logName,jdbcType=VARCHAR}
+ </select>
+ 
+ <!-- 通过id查询 -->
+ <select id="selectUserById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  select <include refid="all_column"/> 
+  from user where id=#{0}
+ </select>
+ 
+ <!-- 根据时间查询 -->
+ <select id="selectUserByTime" resultMap="BaseResultMap">
+  select <include refid="all_column"/> 
+   from user where 1=1
+  <if test="startTime != null">
+   <![CDATA[and create_time >=#{startTime}]]>
+  </if>
+  <if test="endTime != null">
+  and create_time &lt;=#{endTime}
+  </if>
+ </select>
+ 
+  <select id="selectByCookieId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  select <include refid="all_column"/> 
+  from user where cookie_id=#{cookieId,jdbcType=VARCHAR}
+ </select>
+ 
+ <select id="selectUserAuthority" resultType="java.lang.Integer">
+ select m.id from user_role u
+ inner join role_menu r on u.role_id= r.role_id
+ inner join menu m on r.menu_id = m.id
+ where u.user_id=#{userId,jdbcType=INTEGER} and m.url=#{url,jdbcType=VARCHAR}
+ </select>
+ 
+ <update id="updateUserByUserId" parameterType="com.lx.entity.User">
+  update user
+   <set>
+    <if test="type != null">
+     type =#{id,jdbcType=INTEGER}
+    </if>
+    <if test="status != null">
+     status =#{id,jdbcType=INTEGER}
+    </if>
+    <if test="lastTime != null">
+     last_time =#{lastTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="cookieId != null">
+     cookie_id =#{cookieId,jdbcType=VARCHAR}
+    </if>
+    <if test="lastIp != null">
+    last_ip =#{lastIp,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null"></if>
+    password =#{password,jdbcType=VARCHAR}
+   </set>
+   where id =#{id,jdbcType=BIGINT}
+ </update>
+</mapper>

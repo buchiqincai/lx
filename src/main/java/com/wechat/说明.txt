@@ -1,0 +1,1 @@
+wechat.yaml是以公众号的appid为顶级节点，

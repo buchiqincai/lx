@@ -1,0 +1,37 @@
+12: 
+ JSAPI: 
+  key: web11111
+  callBackURL: http://localhost:8080/a.htm
+  appid: web111
+  mchId: web111
+  limitPay: no_credit
+  signType: MD5
+ APP: 
+  key: app1111
+  callBackURL: http://localhost:8080/a.htm
+  appid: app111
+  mchId: app111
+  limitPay: no_credit
+  package: Sign=WXPay
+  
+13: 
+ JSAPI: 
+  key: web222
+  callBackURL: http://localhost:8080/a.htm
+  appid: web222
+  mchId: web222
+  limitPay: no_credit
+  signType: MD5
+ APP: 
+  key: app222
+  callBackURL: http://localhost:8080/a.htm
+  appid: app2222
+  mchId: app2222
+  limitPay: no_credit
+  package: Sign=WXPay
+
+wechatURL:
+ weixinPayUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+ 
+
+ 
