@@ -34,8 +34,6 @@ public class WechatPayCallBack {
 				if(StringUtils.isBlank(sign)){
 					return map;
 				}  
-				
-				
 				callBackMap.remove("sign");
 				String reString=PrepayOrderShift.mapOrderAsc(callBackMap);
 				String rString=reString+"key="+
@@ -51,8 +49,7 @@ public class WechatPayCallBack {
 				//商户订单编号
 				//String out_trade_no=(String)callBackMap.get("out_trade_no");
 				/**
-				 * 处理业务
-				 * @TODO
+				 * TODO 处理业务
 				 */
 			}
 			map.put("code", 500);
