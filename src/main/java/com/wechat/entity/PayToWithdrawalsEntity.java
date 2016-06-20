@@ -3,11 +3,14 @@ package com.wechat.entity;
 import java.io.Serializable;
 
 /**
+ * qqq
  * 商户付款实体类
  * @author lx
  *
  */
 public class PayToWithdrawalsEntity implements Serializable{
+	
+	
 	/**
 	 * 
 	 */
